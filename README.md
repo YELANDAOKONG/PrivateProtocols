@@ -1,2 +1,6 @@
-# PrivateProtocols
-[Cocuments](Experimental/Learning) A document repository for storing specification documents of custom network protocols that I have created myself.
+# Private Protocols
+
+存储我自己"创造"的自定义网络协议的规范文档。
+
+**这些协议可能不完善或存在严重安全漏洞，请勿将其用于生产环境！**
+
