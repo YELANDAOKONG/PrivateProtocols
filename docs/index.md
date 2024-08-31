@@ -10,6 +10,6 @@
 
 ## 协议索引
 
-| 协议全程 | 协议名称 | 协议缩写 | 文档链接 | 创建时间 |
+| 协议全称 | 协议名称 | 协议缩写 | 文档链接 | 创建时间 |
 | -------- | -------- | ------- | -------- | -------- |
-| Events Index Service | 事件索引协议 | EIS | [协议文档](protocols/P00001+Events-Index-Service/index.md) | 2024/09/01 |
+| Events Index Service | 事件索引协议 | EIS | [协议文档](protocols/P00001+Events-Index-Service/index.md) | 2024/08/28 |
