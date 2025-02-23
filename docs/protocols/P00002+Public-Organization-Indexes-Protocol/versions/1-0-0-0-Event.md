@@ -235,7 +235,7 @@ data/1005.dat
     },
     "files": [                                        // @NULLABLE 此字段标识事件消息附加的资源文件列表（如不增加资源文件，可不添加此字段或将本字段内URI值设为Null）
         {
-            "uri": "https://exanmple.com/file.mp3",      // @NULLABLE 资源文件URI地址（可为Null，不增加此字段或值为Null表示无资源文件）
+            "uri": "https://example.com/file.mp3",      // @NULLABLE 资源文件URI地址（可为Null，不增加此字段或值为Null表示无资源文件）
             "type": "audio/mpeg",                        // @NULLABLE 资源类型（可为Null，不增加此字段或值为Null表示未知的资源类型，由客户端在需要时自行判断）
             "length": -1                                 // @NULLABLE 资源大小（不增加此字段或值为-1表示未知的资源大小，由客户端在需要时自行判断）
         }
