@@ -21,3 +21,4 @@
 | 协议全称 | 协议名称 | 协议缩写 | 文档链接 | 创建时间 | 正式版 | 许可证 |
 | -------- | -------- | ------- | --------- | -------- | ------ | ------ |
 | Events Index Service | 事件索引协议 | EIS | [协议文档](protocols/P00001+Events-Index-Service/index.md) | 2024/08/28 | TRUE | MIT License |
+| Public Organization Indexes Protocol | 公共组织索引协议 | POIP | [协议文档](protocols/P00002+Public-Organization-Indexes-Protocol/index.md) | 2025/02/24 | FALSE | MIT License |
