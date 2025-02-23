@@ -12,7 +12,7 @@ https://example.com/events/
 
 **事件消息：** 由标题、图标、链接、描述、内容等信息构成的一段 JSON 或 XML 格式数据。
 
-**事件消息ID：** 用于标识事件消息的唯一ID，一般为自然数（**ID "0" 保留**）。
+**事件消息ID：** 用于标识事件消息的唯一ID，一般为自然数。
 
 ---
 
@@ -98,27 +98,32 @@ poiseips://user:password@example.com/events/?version=11000-0#1000
 
 ```json
 {
-    "security": {                           // 安全相关选项（可选，如无该字段标识不使用安全及加密选项）
-        "encryption": {                     // 加密相关选项（可选）
-            "enabled": false,               // 是否启用加密，默认False
-            "algorithm": null,              // 加密算法【本协议不做详细规定；请根据使用场景自行决定】
-            "specification": null,               // 加密算法的参数
-            "parameters": [],               // 加密算法的参数
-            "keys": {                       // 密钥字段【本协议不做详细规定；请根据使用场景自行决定】
-                "password": null,           // 密钥（可选）【可为Null】
-                "pair": {                   // 密钥对（如果使用非对称加密）（可选）
-                    "public": {             // 公钥（可选）
-                        "format": null,     // 密钥格式【可为Null】
-                        "data": null        // 密钥内容【可为Null】
-                    },
-                    "private": {            // 私钥（可选）
-                        "format": null,     // 密钥格式【可为Null】
-                        "data": null        // 密钥内容【可为Null】
-                    },
-                    "chain": {              // 证书链（可选）
-                        "format": null,     // 证书格式【可为Null】
-                        "data": null        // 证书内容【可为Null】
-                    }
+    "security": {                           // @NULLABLE 安全相关选项（可选，如无该字段标识不使用安全及加密选项）
+        "encryption": {                     // @NULLABLE 加密相关选项（可选）
+            "enabled": false,               // @NULLABLE 是否启用加密 (可为NULL，为NULL默认False)
+            "algorithm": null,              // 加密算法名称
+            "specification": null,          // 密钥规格信息
+            "parameters": [],               // 密钥参数信息
+            "keys": {
+                "public": {             // @NULLABLE 公钥（可选）
+                    "format": null,     // @NULLABLE 密钥格式【可为Null】
+                    "data": null,       // @NULLABLE 密钥内容【可为Null】
+                    "extension": {}
+                },
+                "private": {            // @NULLABLE 私钥（可选）
+                    "format": null,     // @NULLABLE 密钥格式【可为Null】
+                    "data": null,       // @NULLABLE 密钥内容【可为Null】
+                    "extension": {}
+                },
+                "protected": {          // @NULLABLE 对称加密密码（可选）
+                    "format": null,     // @NULLABLE 密钥格式【可为Null】
+                    "data": null,       // @NULLABLE 密钥内容【可为Null】
+                    "extension": {}
+                },
+                "chain": {              // @NULLABLE 证书链（可选）
+                    "format": null,     // @NULLABLE 证书格式【可为Null】
+                    "data": null,       // @NULLABLE 证书内容【可为Null】
+                    "extension": {}
                 },
                 "extension": {}             // 扩展字段（根据使用场景自行增加，本协议不做规定）
             },
@@ -130,9 +135,9 @@ poiseips://user:password@example.com/events/?version=11000-0#1000
 }
 ```
 
-> **上述示例中 security 及 security->encryption 均为可选字段，为了降低复杂性，建议在需要时添加。**
+> **上述示例中 security 及 security->encryption 均为可选字段，为了降低复杂性，建议仅在需要时添加。**
 
-## counter.json
+## counter.dat
 
 该文件存储上一个“事件消息”的ID和对应的发布时间。
 
@@ -146,13 +151,14 @@ poiseips://user:password@example.com/events/?version=11000-0#1000
 
 ```json
 {
-    "last": 1000,                          // 事件消息ID（此值为 "0" 表示系统没有任何事件消息）
-    "time": 1300000000000,                 // 13位时间戳
+    "status": true,                        // 用于判断服务器是否存在事件消息 (为TRUE表示存在，为FALSE表示服务器没有事件消息)
+    "latest": 1000,                        // 最新的事件消息ID
+    "time": 1300000000000,                 // 13位时间戳，标识最新事件消息的发布时间
     "extension": {}                        // 扩展字段（根据使用场景自行增加，本协议不做规定）
 }
 ```
 
-## data.json
+## data.dat
 
 该文件存储每一个事件消息的ID和其部分的元数据。
 
@@ -185,17 +191,17 @@ poiseips://user:password@example.com/events/?version=11000-0#1000
 }
 ```
 
-## data/<事件消息ID>.json
+## data/<事件消息ID>.dat
 
 data 目录下的所有 JSON 文件，每个 JSON 文件标识一条事件消息，其文件名由其ID构成；如：
 
 ```text
-data/1000.json
-data/1001.json
-data/1002.json
-data/1003.json
-data/1004.json
-data/1005.json
+data/1000.dat
+data/1001.dat
+data/1002.dat
+data/1003.dat
+data/1004.dat
+data/1005.dat
 ......
 ```
 
@@ -227,11 +233,13 @@ data/1005.json
             "Hello World, Hello World! "                                    // （仅示例，无规定）
         ]
     },
-    "file": {                                        // 此字段标识事件消息附加的资源文件（如不增加资源文件，可不添加此字段或将本字段内URI值设为Null）
-        "uri": "https://exanmple.com/file.mp3",      // 资源文件URI地址（可为Null，不增加此字段或值为Null表示无资源文件）
-        "type": "audio/mpeg",                        // 资源类型（可为Null，不增加此字段或值为Null表示未知的资源类型，由客户端在需要时自行判断）
-        "length": -1                                 // 资源大小（不增加此字段或值为-1表示未知的资源大小，由客户端在需要时自行判断）
-    },
+    "files": [                                        // @NULLABLE 此字段标识事件消息附加的资源文件列表（如不增加资源文件，可不添加此字段或将本字段内URI值设为Null）
+        {
+            "uri": "https://exanmple.com/file.mp3",      // @NULLABLE 资源文件URI地址（可为Null，不增加此字段或值为Null表示无资源文件）
+            "type": "audio/mpeg",                        // @NULLABLE 资源类型（可为Null，不增加此字段或值为Null表示未知的资源类型，由客户端在需要时自行判断）
+            "length": -1                                 // @NULLABLE 资源大小（不增加此字段或值为-1表示未知的资源大小，由客户端在需要时自行判断）
+        }
+    ],
     "extension": {}                        // 扩展字段（根据使用场景自行增加，本协议不做规定）
 }
 ```
