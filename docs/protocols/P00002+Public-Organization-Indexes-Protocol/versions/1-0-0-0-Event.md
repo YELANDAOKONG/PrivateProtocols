@@ -76,7 +76,7 @@ poiseips://user:password@example.com/events/?version=11000-0#1000
 
 ```json
 {
-    "type": "text", // @NULLABLE 标识文件的类型 (为NULL表示不设置/未加密)
+    "type": "encrypted", // @NULLABLE 标识文件的类型 (为NULL表示不设置/未加密)
     "data": "<BASE64...>"   // Base64 编码的原文件数据
 }
 ```
@@ -346,3 +346,9 @@ data/1005.dat
 ## classics/*.json
 
 > **此目录目前保留不使用。**
+
+
+
+
+
+
